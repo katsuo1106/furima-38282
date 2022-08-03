@@ -103,6 +103,12 @@ context "新規登録できない場合" do
     @user.valid?
     expect(@user.errors.full_messages).to include("First name kana 全角カタカナで入力して下さい")
   end
+  it "passwordが全角文字では登録できない" do
+    @user.password = "ａａａ１１１"
+    @user.password_confirmation = "ａａａ１１１"
+    @user.valid?
+    expect(@user.errors.full_messages).to include("Password は半角英数を両方含む必要があります")
+  end
 end
 
 end
