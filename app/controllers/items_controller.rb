@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
-
-  before_action :authenticate_user!, only: [:new, :create, :edit ,:update]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :move_to_index, only: [:edit, :destroy]
 
   def index
-    @items = Item.order("id DESC")
+    @items = Item.order('id DESC')
   end
 
   def new
@@ -24,29 +24,33 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    unless @item.user_id == current_user.id
-      redirect_to action: :index
-    end
   end
 
   def update
     if @item.update(item_params)
       redirect_to item_path(@item.id)
-    else    
+    else
       render :edit
     end
+  end
+
+  def destroy
+    @item.destroy
+    redirect_to root_path
   end
 
   private
 
   def item_params
-    params.require(:item).permit(:item_name, :item_description, :category_id, :condition_id, :postage_id, :area_id, :delivery_day_id, :price, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:item_name, :item_description, :category_id, :condition_id, :postage_id, :area_id,
+                                 :delivery_day_id, :price, :image).merge(user_id: current_user.id)
   end
 
   def set_item
     @item = Item.find(params[:id])
   end
 
-    
-
+  def move_to_index
+    redirect_to action: :index unless @item.user_id == current_user.id
+  end
 end
