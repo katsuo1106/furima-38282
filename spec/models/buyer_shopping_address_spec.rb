@@ -28,17 +28,17 @@ RSpec.describe BuyerShoppingAddress, type: :model do
       it 'post_codeがハイフン無しでは登録できない' do
         @buyer_shopping_address.post_code = '1234567'
         @buyer_shopping_address.valid?
-        expect(@buyer_shopping_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@buyer_shopping_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'post_codeが半角英数混合では登録できない' do
         @buyer_shopping_address.post_code = '111-aaaa'
         @buyer_shopping_address.valid?
-        expect(@buyer_shopping_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@buyer_shopping_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'post_codeが全角では登録できない' do
         @buyer_shopping_address.post_code = '１２３-４５６７'
         @buyer_shopping_address.valid?
-        expect(@buyer_shopping_address.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@buyer_shopping_address.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'area_idが1では登録できない' do
         @buyer_shopping_address.area_id = 1
@@ -63,32 +63,28 @@ RSpec.describe BuyerShoppingAddress, type: :model do
       it 'phone_numberが9桁では登録できない' do
         @buyer_shopping_address.phone_number = '090123456'
         @buyer_shopping_address.valid?
-        expect(@buyer_shopping_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@buyer_shopping_address.errors.full_messages).to include('Phone number is invalid')
       end
       it 'phone_numberが12桁では登録できない' do
         @buyer_shopping_address.phone_number = '090123456789'
         @buyer_shopping_address.valid?
-        expect(@buyer_shopping_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@buyer_shopping_address.errors.full_messages).to include('Phone number is invalid')
       end
       it 'phone_numberが半角英数混合では登録できない' do
         @buyer_shopping_address.phone_number = '090aaaa1234'
         @buyer_shopping_address.valid?
-        expect(@buyer_shopping_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@buyer_shopping_address.errors.full_messages).to include('Phone number is invalid')
       end
       it 'phone_numberが全角では登録できない' do
         @buyer_shopping_address.phone_number = '０９０１２３４５６７８'
         @buyer_shopping_address.valid?
-        expect(@buyer_shopping_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@buyer_shopping_address.errors.full_messages).to include('Phone number is invalid')
       end
       it 'tokenが空では保存できない' do
         @buyer_shopping_address.token = ' '
         @buyer_shopping_address.valid?
         expect(@buyer_shopping_address.errors.full_messages).to include("Token can't be blank")
       end
-  
-  
-  
-  
+    end
   end
-end
 end
